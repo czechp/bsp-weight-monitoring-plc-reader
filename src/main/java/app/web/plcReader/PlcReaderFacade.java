@@ -1,6 +1,7 @@
 package app.web.plcReader;
 
 import app.web.weightModule.PlcReader;
+import app.web.weightModule.valueObject.WeightModuleBasicData;
 import com.github.s7connector.api.S7Connector;
 import com.github.s7connector.api.S7Serializer;
 import com.github.s7connector.api.factory.S7ConnectorFactory;
@@ -36,5 +37,12 @@ public class PlcReaderFacade implements PlcReader {
     public void closeSession() throws IOException {
         s7Connector.close();
         logger.info("Connection with PLC: {} closed", plcAddress);
+    }
+
+    @Override
+    public WeightModuleBasicData readModuleBasicData(int dbNumber) {
+        PlcModuleBasicData plcModuleBasicData = s7Serializer.dispense(PlcModuleBasicData.class, dbNumber, 0);
+        System.out.println(plcModuleBasicData);
+        return new WeightModuleBasicData();
     }
 }

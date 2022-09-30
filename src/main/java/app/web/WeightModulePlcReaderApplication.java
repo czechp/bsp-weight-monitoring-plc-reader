@@ -18,7 +18,7 @@ public class WeightModulePlcReaderApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     void startUp() {
-        WeightModule weightModule = new WeightModule("192.168.0.247");
+        WeightModule weightModule = new WeightModule("192.168.0.247",32);
         weightModule.processData();
     }
 
