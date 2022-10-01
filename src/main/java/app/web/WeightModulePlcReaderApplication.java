@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -33,8 +31,8 @@ public class WeightModulePlcReaderApplication {
 
     @Scheduled(fixedDelay = 30_000)
     void startUp() {
-        final var backendConfiguration = new BackendConfiguration(BACKEND_URL, BACKEND_LOGIN, BACKEND_PASSWORD);
-        final var weightModule = new WeightModule(new PlcConfiguration("192.168.0.247",32), backendConfiguration);
+        final var backendConfiguration = new BackendConfiguration(1L, BACKEND_URL, BACKEND_LOGIN, BACKEND_PASSWORD);
+        final var weightModule = new WeightModule(new PlcConfiguration("192.168.0.247", 32), backendConfiguration);
         weightModule.processData();
     }
 
