@@ -10,8 +10,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @SpringBootApplication()
+@EnableScheduling
 public class WeightModulePlcReaderApplication {
     private final Logger logger = LoggerFactory.getLogger(WeightModulePlcReaderApplication.class);
 
@@ -28,7 +31,7 @@ public class WeightModulePlcReaderApplication {
         SpringApplication.run(WeightModulePlcReaderApplication.class, args);
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+    @Scheduled(fixedDelay = 30_000)
     void startUp() {
         final var backendConfiguration = new BackendConfiguration(BACKEND_URL, BACKEND_LOGIN, BACKEND_PASSWORD);
         final var weightModule = new WeightModule(new PlcConfiguration("192.168.0.247",32), backendConfiguration);
