@@ -1,14 +1,16 @@
 package app.web.weightModule.valueObject;
 
 import app.web.plcReader.PlcModuleBasicData;
+import app.web.utils.JsonConverter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.IOException;
+
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
-@ToString
 public class WeightModuleBasicData {
     private float productUpRangeWeight = 0.0f;
     private float productDownRangeWeight = 0.0f;
@@ -30,5 +32,14 @@ public class WeightModuleBasicData {
                 plcData.totalProductPcs,
                 plcData.correctProductPercent
         );
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return JsonConverter.toJson(this);
+        } catch (IOException e) {
+            return "Cannot parse " + this.getClass().toString() + " to JSON";
+        }
     }
 }
