@@ -29,7 +29,7 @@ public class WeightModule {
     private void readDataFromPlc() {
         try {
             plcReader.createSession();
-            plcReader.readModuleBasicData(plcInfo.getDbNrBasicInfo());
+            this.weightModuleBasicData = plcReader.readModuleBasicData(plcInfo.getDbNrBasicInfo());
             plcReader.closeSession();
         } catch (Exception e) {
             logger.error("Error during fetching data from PLC Controller");
