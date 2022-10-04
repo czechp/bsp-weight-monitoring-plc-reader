@@ -12,9 +12,7 @@ import java.net.URISyntaxException;
 
 public class WeightModule {
     private final Logger logger = LoggerFactory.getLogger(WeightModule.class);
-    private final PlcReader plcReader;
     private final PlcConfiguration plcConfiguration;
-    private final RequestSender requestSender;
     private final BackendConfiguration backendConfiguration;
     private WeightModuleBasicData weightModuleBasicData;
 
@@ -22,8 +20,6 @@ public class WeightModule {
     public WeightModule(PlcConfiguration plcConfiguration, BackendConfiguration backendConfiguration) {
         this.plcConfiguration = plcConfiguration;
         this.backendConfiguration = backendConfiguration;
-        this.plcReader = new PlcReaderFacade(this.plcConfiguration.getPlcAddress());
-        this.requestSender = new RequestSenderFacade(backendConfiguration);
         this.weightModuleBasicData = new WeightModuleBasicData();
 
         logger.info("Weight module with PLC address created: {}", plcConfiguration.getPlcAddress());
@@ -36,6 +32,7 @@ public class WeightModule {
 
     private void readDataFromPlc() {
         try {
+            final var plcReader = new PlcReaderFacade(this.plcConfiguration.getPlcAddress());
             plcReader.createSession();
             weightModuleBasicData = plcReader.readModuleBasicData(plcConfiguration.getDbNrBasicInfo());
             logger.info("Data read from PLC");
@@ -48,6 +45,7 @@ public class WeightModule {
 
     private void sendDataToBackend() {
         try {
+            final var requestSender = new RequestSenderFacade(this.backendConfiguration);
             requestSender.sendBasicModuleData(weightModuleBasicData.toString());
         } catch (Exception e) {
             logger.error("Error during sending data to backend");
