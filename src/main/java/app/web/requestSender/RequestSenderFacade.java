@@ -40,7 +40,7 @@ public class RequestSenderFacade implements RequestSender {
 
     private HttpRequest.Builder createRequestBuilder(String ENDPOINT) throws URISyntaxException {
         return HttpRequest.newBuilder()
-                .uri(new URI(configuration.getBackendUrl() + ENDPOINT))
+                .uri(new URI(configuration.getServerUrl() + ENDPOINT))
                 .header("Authorization", hashAuthorizationHeader())
                 .timeout(Duration.of(10, ChronoUnit.SECONDS));
     }
@@ -59,7 +59,7 @@ public class RequestSenderFacade implements RequestSender {
         final var httpClient = HttpClient.newBuilder().build();
         CompletableFuture<HttpResponse<String>> futureHttpResponse = httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
         futureHttpResponse.thenAccept((httpResponse) -> {
-            logger.info("Response from server with status: {}", httpResponse.statusCode());
+            logger.info("Response from server: {} at endpoint: {} with status: {}", configuration.getServerUrl(), configuration.getEndpoint(), httpResponse.statusCode());
         });
     }
 }

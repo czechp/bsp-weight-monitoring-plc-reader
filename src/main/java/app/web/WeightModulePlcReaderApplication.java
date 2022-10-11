@@ -4,6 +4,7 @@ import app.web.configuration.RequestSenderConfiguration;
 import app.web.configuration.PlcConfiguration;
 import app.web.plcReader.PlcReaderFacade;
 import app.web.weightModule.WeightModuleFirst;
+import app.web.weightModule.WeightModuleLast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,12 +35,16 @@ public class WeightModulePlcReaderApplication {
 
     @Scheduled(fixedDelay = 60_000)
     void startUp() throws IOException {
-        final var backendConfiguration = new RequestSenderConfiguration(1L, BACKEND_URL, "/api/weight-modules/data/",  BACKEND_LOGIN, BACKEND_PASSWORD);
+        final var httpConfigurationModuleFirst = new RequestSenderConfiguration(1L, BACKEND_URL, "/api/weight-modules/data/",  BACKEND_LOGIN, BACKEND_PASSWORD);
+        final var httpConfigurationModuleLast = new RequestSenderConfiguration(1L, BACKEND_URL, "/api/weight-modules-last/data/",  BACKEND_LOGIN, BACKEND_PASSWORD);
         final var plcConfigurationModuleFirst = new PlcConfiguration("192.168.0.247", 32);
         final var plcConfigurationModuleLast = new PlcConfiguration("192.168.0.247", 33);
 
-        WeightModuleFirst weightModuleFirst = new WeightModuleFirst(plcConfigurationModuleFirst, backendConfiguration);
+        WeightModuleFirst weightModuleFirst = new WeightModuleFirst(plcConfigurationModuleFirst, httpConfigurationModuleFirst);
         weightModuleFirst.processData();
+
+        WeightModuleLast weightModuleLast = new WeightModuleLast(plcConfigurationModuleLast, httpConfigurationModuleLast);
+        weightModuleLast.processData();
     }
 
 }
