@@ -3,6 +3,7 @@ package app.web.plcReader;
 import app.web.configuration.PlcConfiguration;
 import app.web.weightModule.PlcReader;
 import app.web.weightModule.valueObject.WeightModuleFirstData;
+import app.web.weightModule.valueObject.WeightModuleLastData;
 import com.github.s7connector.api.S7Connector;
 import com.github.s7connector.api.S7Serializer;
 import com.github.s7connector.api.factory.S7ConnectorFactory;
@@ -42,7 +43,15 @@ public class PlcReaderFacade implements PlcReader {
 
     @Override
     public WeightModuleFirstData readFirstModuleData() {
-        PlcModuleBasicData plcModuleBasicData = s7Serializer.dispense(PlcModuleBasicData.class, plcConfiguration.getDbNrBasicInfo(), 0);
-        return WeightModuleFirstData.create(plcModuleBasicData);
+        PlcModuleFirstData plcModuleFirstData = s7Serializer.dispense(PlcModuleFirstData.class, plcConfiguration.getDbNrBasicInfo(), 0);
+        return WeightModuleFirstData.create(plcModuleFirstData);
+    }
+
+    @Override
+    public WeightModuleLastData readLastModuleData() {
+        PlcModuleLastData plcModuleLastData = s7Serializer.dispense(PlcModuleLastData.class, plcConfiguration.getDbNrBasicInfo(), 0);
+        System.out.println(plcModuleLastData);
+
+        return null;
     }
 }

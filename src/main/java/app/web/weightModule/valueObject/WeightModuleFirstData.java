@@ -1,6 +1,6 @@
 package app.web.weightModule.valueObject;
 
-import app.web.plcReader.PlcModuleBasicData;
+import app.web.plcReader.PlcModuleFirstData;
 import app.web.utils.JsonConverter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class WeightModuleFirstData {
     private long totalProductPcs = 0L;
     private float correctProductPercent = 0.0f;
 
-    public static WeightModuleFirstData create(PlcModuleBasicData plcData) {
+    public static WeightModuleFirstData create(PlcModuleFirstData plcData) {
         return new WeightModuleFirstData(
                 plcData.productUpRangeWeight,
                 plcData.productDownRangeWeight,
