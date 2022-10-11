@@ -2,7 +2,7 @@ package app.web;
 
 import app.web.configuration.BackendConfiguration;
 import app.web.configuration.PlcConfiguration;
-import app.web.weightModule.WeightModule;
+import app.web.weightModule.WeightModuleFirst;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +32,10 @@ public class WeightModulePlcReaderApplication {
     @Scheduled(fixedDelay = 30_000)
     void startUp() {
         final var backendConfiguration = new BackendConfiguration(1L, BACKEND_URL, BACKEND_LOGIN, BACKEND_PASSWORD);
-        final var weightModule = new WeightModule(new PlcConfiguration("192.168.0.247", 32), backendConfiguration);
-        weightModule.processData();
+        PlcConfiguration plcConfiguration = new PlcConfiguration("192.168.0.247", 32);
+
+        WeightModuleFirst weightModuleFirst = new WeightModuleFirst(plcConfiguration, backendConfiguration);
+        weightModuleFirst.processData();
     }
 
 }

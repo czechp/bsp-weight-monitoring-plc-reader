@@ -5,13 +5,12 @@ import app.web.utils.JsonConverter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.io.IOException;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
-public class WeightModuleBasicData {
+public class WeightModuleFirstData {
     private float productUpRangeWeight = 0.0f;
     private float productDownRangeWeight = 0.0f;
     private int currentDosingDevice = 0;
@@ -21,8 +20,8 @@ public class WeightModuleBasicData {
     private long totalProductPcs = 0L;
     private float correctProductPercent = 0.0f;
 
-    public static WeightModuleBasicData create(PlcModuleBasicData plcData) {
-        return new WeightModuleBasicData(
+    public static WeightModuleFirstData create(PlcModuleBasicData plcData) {
+        return new WeightModuleFirstData(
                 plcData.productUpRangeWeight,
                 plcData.productDownRangeWeight,
                 plcData.currentDosingDevice,

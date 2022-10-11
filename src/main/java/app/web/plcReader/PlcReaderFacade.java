@@ -1,7 +1,8 @@
 package app.web.plcReader;
 
+import app.web.configuration.PlcConfiguration;
 import app.web.weightModule.PlcReader;
-import app.web.weightModule.valueObject.WeightModuleBasicData;
+import app.web.weightModule.valueObject.WeightModuleFirstData;
 import com.github.s7connector.api.S7Connector;
 import com.github.s7connector.api.S7Serializer;
 import com.github.s7connector.api.factory.S7ConnectorFactory;
@@ -13,35 +14,35 @@ import java.io.IOException;
 
 public class PlcReaderFacade implements PlcReader {
     private final Logger logger = LoggerFactory.getLogger(PlcReaderFacade.class);
-    private final String plcAddress;
+    private final PlcConfiguration plcConfiguration;
     private S7Connector s7Connector;
     private S7Serializer s7Serializer;
 
-    public PlcReaderFacade(String plcAddress) {
-        this.plcAddress = plcAddress;
+    public PlcReaderFacade(PlcConfiguration plcConfiguration) {
+        this.plcConfiguration = plcConfiguration;
     }
 
     @Override
     public void createSession() {
         s7Connector = S7ConnectorFactory
                 .buildTCPConnector()
-                .withHost(plcAddress)
+                .withHost(plcConfiguration.getPlcAddress())
                 .withRack(0) //optional
                 .withSlot(1) //optional
                 .build();
         s7Serializer = S7SerializerFactory.buildSerializer(s7Connector);
-        logger.info("Connection with PLC: {} established", plcAddress);
+        logger.info("Connection with PLC: {} established", plcConfiguration.getPlcAddress());
     }
 
     @Override
     public void closeSession() throws IOException {
         s7Connector.close();
-        logger.info("Connection with PLC: {} closed", plcAddress);
+        logger.info("Connection with PLC: {} closed", plcConfiguration.getPlcAddress());
     }
 
     @Override
-    public WeightModuleBasicData readModuleBasicData(int dbNumber) {
-        PlcModuleBasicData plcModuleBasicData = s7Serializer.dispense(PlcModuleBasicData.class, dbNumber, 0);
-        return WeightModuleBasicData.create(plcModuleBasicData);
+    public WeightModuleFirstData readModuleBasicData() {
+        PlcModuleBasicData plcModuleBasicData = s7Serializer.dispense(PlcModuleBasicData.class, plcConfiguration.getDbNrBasicInfo(), 0);
+        return WeightModuleFirstData.create(plcModuleBasicData);
     }
 }
