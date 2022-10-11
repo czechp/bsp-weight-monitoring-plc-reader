@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.IOException;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor
 public class WeightModuleFirstData {
     private float productUpRangeWeight = 0.0f;

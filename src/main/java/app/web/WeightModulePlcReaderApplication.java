@@ -35,12 +35,8 @@ public class WeightModulePlcReaderApplication {
     @Scheduled(fixedDelay = 30_000)
     void startUp() throws IOException {
         final var backendConfiguration = new RequestSenderConfiguration(1L, BACKEND_URL, "/api/weight-modules/data/",  BACKEND_LOGIN, BACKEND_PASSWORD);
-        PlcConfiguration plcConfiguration = new PlcConfiguration("192.168.0.247", 33);
+        final var plcConfiguration = new PlcConfiguration("192.168.0.247", 33);
 
-        PlcReaderFacade plcReaderFacade = new PlcReaderFacade(plcConfiguration);
-        plcReaderFacade.createSession();
-        plcReaderFacade.readLastModuleData();
-        plcReaderFacade.closeSession();
     }
 
 }

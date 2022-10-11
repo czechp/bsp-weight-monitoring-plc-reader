@@ -1,5 +1,6 @@
 package app.web.weightModule.valueObject;
 
+import app.web.plcReader.PlcModuleLastData;
 import app.web.utils.JsonConverter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,42 @@ public class WeightModuleLastData {
     private WeightModuleFirstData moduleInfo;
     private LastModuleInfo lastModuleInfo;
 
-    class LastModuleInfo{
+    public static  WeightModuleLastData create(PlcModuleLastData module) {
+        WeightModuleFirstData moduleInfo = new WeightModuleFirstData(
+                module.getProductUpRangeWeight(),
+                module.getProductDownRangeWeight(),
+                module.getCurrentDosingDevice(),
+                module.getCurrentMeasure(),
+                module.isStatus(),
+                module.getTotalMaterialWeight(),
+                module.getTotalProductPcs(),
+                module.getCorrectProductPercent()
+        );
+
+        LastModuleInfo lastModuleInfo = new LastModuleInfo(
+                module.getIncorrectProductPcs(),
+                module.getWeightDifference(),
+                module.getCorrectToOverDosePercent(),
+                module.getNotRefilledProductPcs(),
+                module.getOverFilledProductPcs(),
+                module.getOverFilledToNotRefilledPercent()
+        );
+
+        return new WeightModuleLastData(moduleInfo, lastModuleInfo);
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return JsonConverter.toJson(this);
+        } catch (IOException e) {
+            return "Cannot parse " + this.getClass().toString() + " to JSON";
+        }
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    static
+    class LastModuleInfo {
         private long incorrectProductPcs;
         private float weightDifference;
         private float correctToOverdosePercent;
@@ -28,15 +64,6 @@ public class WeightModuleLastData {
             } catch (IOException e) {
                 return "Cannot parse " + this.getClass().toString() + " to JSON";
             }
-        }
-    }
-
-    @Override
-    public String toString() {
-        try {
-            return JsonConverter.toJson(this);
-        } catch (IOException e) {
-            return "Cannot parse " + this.getClass().toString() + " to JSON";
         }
     }
 }
