@@ -38,12 +38,13 @@ public class PlcReaderFacade implements PlcReader {
     @Override
     public void closeSession() throws IOException {
         s7Connector.close();
-        logger.info("Connection with PLC: {} closed", plcConfiguration.getPlcAddress());
+        logger.info("Data read fromg PLC: {}", plcConfiguration.getPlcAddress());
     }
 
     @Override
     public WeightModuleFirstData readFirstModuleData() throws IOException {
         this.createSession();
+        logger.info("Read data form module I");
         PlcModuleFirstData plcModuleFirstData = s7Serializer.dispense(PlcModuleFirstData.class, plcConfiguration.getDbNrBasicInfo(), 0);
         this.closeSession();
         return WeightModuleFirstData.create(plcModuleFirstData);
@@ -52,6 +53,7 @@ public class PlcReaderFacade implements PlcReader {
     @Override
     public WeightModuleLastData readLastModuleData() throws IOException {
         this.createSession();
+        logger.info("Read data form module II");
         PlcModuleLastData plcModuleLastData = s7Serializer.dispense(PlcModuleLastData.class, plcConfiguration.getDbNrBasicInfo(), 0);
         this.closeSession();
         return WeightModuleLastData.create(plcModuleLastData);
