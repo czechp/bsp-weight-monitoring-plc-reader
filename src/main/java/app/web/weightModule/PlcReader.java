@@ -8,5 +8,5 @@ public interface PlcReader {
     void createSession();
     void closeSession() throws IOException;
 
-    WeightModuleFirstData readModuleBasicData();
+    WeightModuleFirstData readFirstModuleData();
 }

@@ -1,7 +1,8 @@
 package app.web;
 
-import app.web.configuration.BackendConfiguration;
+import app.web.configuration.RequestSenderConfiguration;
 import app.web.configuration.PlcConfiguration;
+import app.web.plcReader.PlcReaderFacade;
 import app.web.weightModule.WeightModuleFirst;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,11 +32,11 @@ public class WeightModulePlcReaderApplication {
 
     @Scheduled(fixedDelay = 30_000)
     void startUp() {
-        final var backendConfiguration = new BackendConfiguration(1L, BACKEND_URL, BACKEND_LOGIN, BACKEND_PASSWORD);
+        final var backendConfiguration = new RequestSenderConfiguration(1L, BACKEND_URL, "/api/weight-modules/data/",  BACKEND_LOGIN, BACKEND_PASSWORD);
         PlcConfiguration plcConfiguration = new PlcConfiguration("192.168.0.247", 32);
 
-        WeightModuleFirst weightModuleFirst = new WeightModuleFirst(plcConfiguration, backendConfiguration);
-        weightModuleFirst.processData();
+        PlcReaderFacade plcReaderFacade = new PlcReaderFacade(plcConfiguration);
+
     }
 
 }

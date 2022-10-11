@@ -41,7 +41,7 @@ public class PlcReaderFacade implements PlcReader {
     }
 
     @Override
-    public WeightModuleFirstData readModuleBasicData() {
+    public WeightModuleFirstData readFirstModuleData() {
         PlcModuleBasicData plcModuleBasicData = s7Serializer.dispense(PlcModuleBasicData.class, plcConfiguration.getDbNrBasicInfo(), 0);
         return WeightModuleFirstData.create(plcModuleBasicData);
     }

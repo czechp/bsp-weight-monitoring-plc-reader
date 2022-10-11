@@ -1,6 +1,6 @@
 package app.web.weightModule;
 
-import app.web.configuration.BackendConfiguration;
+import app.web.configuration.RequestSenderConfiguration;
 import app.web.configuration.PlcConfiguration;
 import app.web.requestSender.RequestSenderFacade;
 import org.slf4j.Logger;
@@ -14,11 +14,11 @@ abstract class WeightModuleAbstract <T> {
 
     protected T moduleData;
     protected PlcConfiguration plcConfiguration;
-    private BackendConfiguration backendConfiguration;
+    private RequestSenderConfiguration requestSenderConfiguration;
 
-    public WeightModuleAbstract(PlcConfiguration plcConfiguration, BackendConfiguration backendConfiguration) {
+    public WeightModuleAbstract(PlcConfiguration plcConfiguration, RequestSenderConfiguration requestSenderConfiguration) {
         this.plcConfiguration = plcConfiguration;
-        this.backendConfiguration = backendConfiguration;
+        this.requestSenderConfiguration = requestSenderConfiguration;
     }
 
     abstract  T readDataFromPlc() throws IOException;
@@ -34,7 +34,7 @@ abstract class WeightModuleAbstract <T> {
     }
 
     private void sendDataToBackend() throws URISyntaxException, IOException, InterruptedException {
-        RequestSender requestSender = new RequestSenderFacade(backendConfiguration);
+        RequestSender requestSender = new RequestSenderFacade(requestSenderConfiguration);
         requestSender.sendBasicModuleData(moduleData.toString());
     }
 }
