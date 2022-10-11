@@ -15,9 +15,7 @@ public class WeightModuleFirst extends WeightModuleAbstract<WeightModuleFirstDat
     @Override
     WeightModuleFirstData readDataFromPlc() throws IOException {
         PlcReader plcReader = new PlcReaderFacade(plcConfiguration);
-        plcReader.createSession();
         final  var dataFromPLC = plcReader.readFirstModuleData();
-        plcReader.closeSession();
         return dataFromPLC;
     }
 }

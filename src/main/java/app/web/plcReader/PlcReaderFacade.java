@@ -42,15 +42,18 @@ public class PlcReaderFacade implements PlcReader {
     }
 
     @Override
-    public WeightModuleFirstData readFirstModuleData() {
+    public WeightModuleFirstData readFirstModuleData() throws IOException {
+        this.createSession();
         PlcModuleFirstData plcModuleFirstData = s7Serializer.dispense(PlcModuleFirstData.class, plcConfiguration.getDbNrBasicInfo(), 0);
+        this.closeSession();
         return WeightModuleFirstData.create(plcModuleFirstData);
     }
 
     @Override
-    public WeightModuleLastData readLastModuleData() {
+    public WeightModuleLastData readLastModuleData() throws IOException {
+        this.createSession();
         PlcModuleLastData plcModuleLastData = s7Serializer.dispense(PlcModuleLastData.class, plcConfiguration.getDbNrBasicInfo(), 0);
-
+        this.closeSession();
         return WeightModuleLastData.create(plcModuleLastData);
     }
 }
