@@ -1,6 +1,6 @@
 package app.web.requestSender;
 
-import app.web.configuration.BackendConfiguration;
+import app.web.configuration.RequestSenderConfiguration;
 import app.web.weightModule.RequestSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,16 +18,10 @@ import java.util.concurrent.CompletableFuture;
 
 public class RequestSenderFacade implements RequestSender {
     private final Logger logger = LoggerFactory.getLogger(RequestSenderFacade.class);
-    private final String backendUrl;
-    private final String login;
-    private final String password;
-    private final long moduleId;
+    private final RequestSenderConfiguration configuration;
 
-    public RequestSenderFacade(BackendConfiguration backendConfiguration) {
-        this.backendUrl = backendConfiguration.getBackendUrl();
-        this.login = backendConfiguration.getLogin();
-        this.password = backendConfiguration.getPassword();
-        this.moduleId = backendConfiguration.getModuleId();
+    public RequestSenderFacade(RequestSenderConfiguration configuration) {
+        this.configuration = configuration;
     }
 
     private static HttpRequest.BodyPublisher createRequestBody(String basicModuleJson) {
@@ -36,7 +30,7 @@ public class RequestSenderFacade implements RequestSender {
 
     @Override
     public void sendBasicModuleData(String basicModuleJson) throws URISyntaxException, IOException, InterruptedException {
-        final var ENDPOINT = "/api/weight-modules/data/" + moduleId;
+        final var ENDPOINT = configuration.getEndpoint() + configuration.getModuleId();
         HttpRequest.Builder requestBuilder = createRequestBuilder(ENDPOINT);
         addJsonContentHeader(requestBuilder);
         final var httpRequest = requestBuilder.method("PATCH", createRequestBody(basicModuleJson)).build();
@@ -46,13 +40,13 @@ public class RequestSenderFacade implements RequestSender {
 
     private HttpRequest.Builder createRequestBuilder(String ENDPOINT) throws URISyntaxException {
         return HttpRequest.newBuilder()
-                .uri(new URI(backendUrl + ENDPOINT))
+                .uri(new URI(configuration.getBackendUrl() + ENDPOINT))
                 .header("Authorization", hashAuthorizationHeader())
                 .timeout(Duration.of(10, ChronoUnit.SECONDS));
     }
 
     private String hashAuthorizationHeader() {
-        final var hashCode = Base64.getEncoder().encodeToString((login + ":" + password).getBytes());
+        final var hashCode = Base64.getEncoder().encodeToString((configuration.getLogin() + ":" + configuration.getPassword()).getBytes());
         final var basicAuthorizationHeader = "Basic " + hashCode;
         return basicAuthorizationHeader;
     }
