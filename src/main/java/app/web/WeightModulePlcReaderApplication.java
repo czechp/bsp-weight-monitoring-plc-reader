@@ -32,11 +32,14 @@ public class WeightModulePlcReaderApplication {
         SpringApplication.run(WeightModulePlcReaderApplication.class, args);
     }
 
-    @Scheduled(fixedDelay = 30_000)
+    @Scheduled(fixedDelay = 60_000)
     void startUp() throws IOException {
         final var backendConfiguration = new RequestSenderConfiguration(1L, BACKEND_URL, "/api/weight-modules/data/",  BACKEND_LOGIN, BACKEND_PASSWORD);
-        final var plcConfiguration = new PlcConfiguration("192.168.0.247", 33);
+        final var plcConfigurationModuleFirst = new PlcConfiguration("192.168.0.247", 32);
+        final var plcConfigurationModuleLast = new PlcConfiguration("192.168.0.247", 33);
 
+        WeightModuleFirst weightModuleFirst = new WeightModuleFirst(plcConfigurationModuleFirst, backendConfiguration);
+        weightModuleFirst.processData();
     }
 
 }
