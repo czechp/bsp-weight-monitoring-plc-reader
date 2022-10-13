@@ -1,9 +1,9 @@
 package app.web;
 
-import app.web.WeightModulePlcReaderApplication;
 import app.web.configuration.PlcConfiguration;
 import app.web.configuration.RequestSenderConfiguration;
 import app.web.weightModule.WeightModuleFirst;
+import app.web.weightModule.WeightModuleLast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +32,29 @@ class StartupProduction {
     @Scheduled(fixedDelay = 60_000)
     void startUp() throws IOException {
         logger.info("Application started in production mode");
-
+        createFirstModules()
+                .forEach(WeightModuleFirst::processData);
+        createLastModules()
+                .forEach(WeightModuleLast::processData);
     }
+
+    private List<WeightModuleFirst> createFirstModules() {
+
+        return List.of(
+                new WeightModuleFirst(
+                        new PlcConfiguration("192.168.1.46", 32),
+                        new RequestSenderConfiguration(1, BACKEND_URL, "/api/weight-modules/data/", BACKEND_LOGIN, BACKEND_PASSWORD))
+        );
+    }
+
+    private List<WeightModuleLast> createLastModules() {
+        return List.of(
+                new WeightModuleLast(
+                        new PlcConfiguration("192.168.1.46", 33),
+                        new RequestSenderConfiguration(1, BACKEND_URL, "/api/weight-modules-last/data/", BACKEND_LOGIN, BACKEND_PASSWORD)
+                )
+        );
+    }
+
+
 }
