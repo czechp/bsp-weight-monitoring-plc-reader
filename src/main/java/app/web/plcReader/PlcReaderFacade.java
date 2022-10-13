@@ -38,7 +38,7 @@ public class PlcReaderFacade implements PlcReader {
     @Override
     public void closeSession() throws IOException {
         s7Connector.close();
-        logger.info("Data read fromg PLC: {}", plcConfiguration.getPlcAddress());
+        logger.info("Data read from PLC: {}", plcConfiguration.getPlcAddress());
     }
 
     @Override
