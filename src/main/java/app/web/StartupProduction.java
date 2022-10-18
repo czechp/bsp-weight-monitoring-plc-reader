@@ -42,7 +42,7 @@ class StartupProduction {
 
         return List.of(
                 new WeightModuleFirst(
-                        new PlcConfiguration("192.168.1.46", 32),
+                        new PlcConfiguration("192.168.1.46", 32, 36, 34),
                         new RequestSenderConfiguration(1, BACKEND_URL, "/api/weight-modules/data/", BACKEND_LOGIN, BACKEND_PASSWORD))
         );
     }
@@ -50,7 +50,7 @@ class StartupProduction {
     private List<WeightModuleLast> createLastModules() {
         return List.of(
                 new WeightModuleLast(
-                        new PlcConfiguration("192.168.1.46", 33),
+                        new PlcConfiguration("192.168.1.46", 33, 36, 35),
                         new RequestSenderConfiguration(1, BACKEND_URL, "/api/weight-modules-last/data/", BACKEND_LOGIN, BACKEND_PASSWORD)
                 )
         );

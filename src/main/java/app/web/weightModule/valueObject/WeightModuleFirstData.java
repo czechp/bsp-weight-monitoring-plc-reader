@@ -1,6 +1,6 @@
 package app.web.weightModule.valueObject;
 
-import app.web.plcReader.DosingDevicePlcData;
+import app.web.plcReader.PlcDosingDeviceData;
 import app.web.plcReader.PlcModuleFirstData;
 import app.web.utils.JsonConverter;
 import lombok.AccessLevel;
@@ -23,7 +23,7 @@ public class WeightModuleFirstData {
     private long totalProductPcs = 0L;
     private float correctProductPercent = 0.0f;
     private List<DosingDevice> dosingDevices;
-    public static WeightModuleFirstData create(PlcModuleFirstData plcData, List<DosingDevicePlcData> dosingDevicesPlcData) {
+    public static WeightModuleFirstData create(PlcModuleFirstData plcData, List<PlcDosingDeviceData> dosingDevicesPlcData) {
         return new WeightModuleFirstData(
                 plcData.productUpRangeWeight,
                 plcData.productDownRangeWeight,

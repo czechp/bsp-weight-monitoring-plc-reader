@@ -1,9 +1,8 @@
 package app.web.weightModule.valueObject;
 
-import app.web.plcReader.DosingDevicePlcData;
+import app.web.plcReader.PlcDosingDeviceData;
 import app.web.utils.JsonConverter;
 import lombok.AllArgsConstructor;
-import lombok.ToString;
 
 import java.io.IOException;
 
@@ -11,15 +10,15 @@ import java.io.IOException;
 public class DosingDevice {
     private  int recordNumber;
     private float lastMeasure;
-    private int amountBelowMeasures;
-    private int amountCorrectMeasures;
-    private int amountAboveMeasures;
+    private long amountBelowMeasures;
+    private long amountCorrectMeasures;
+    private long amountAboveMeasures;
     private float averageMeasure;
     private int correctMeasuresPercent;
     private int totalMaterial;
 
 
-    static DosingDevice create(DosingDevicePlcData plcData){
+    static DosingDevice create(PlcDosingDeviceData plcData){
         return new DosingDevice(
                 plcData.getRecordNumber(),
                 plcData.getLastMeasure(),

@@ -12,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class PlcReaderFacade implements PlcReader {
     private final Logger logger = LoggerFactory.getLogger(PlcReaderFacade.class);
@@ -45,17 +48,34 @@ public class PlcReaderFacade implements PlcReader {
     public WeightModuleFirstData readFirstModuleData() throws IOException {
         this.createSession();
         logger.info("Read data form module I");
-        PlcModuleFirstData plcModuleFirstData = s7Serializer.dispense(PlcModuleFirstData.class, plcConfiguration.getDbNrBasicInfo(), 0);
+        PlcModuleFirstData plcModuleFirstData = s7Serializer.dispense(PlcModuleFirstData.class, plcConfiguration.getGetModuleInfoDbNumber(), 0);
+        List<PlcDosingDeviceData> dosingDevices = readInfoAboutDosingDevices(plcConfiguration.getAmountOfDosingDevices(),
+                plcConfiguration.getDosingDevicesDbNumber());
+
         this.closeSession();
-        return WeightModuleFirstData.create(plcModuleFirstData);
+        return WeightModuleFirstData.create(plcModuleFirstData, dosingDevices);
     }
 
     @Override
     public WeightModuleLastData readLastModuleData() throws IOException {
         this.createSession();
         logger.info("Read data form module II");
-        PlcModuleLastData plcModuleLastData = s7Serializer.dispense(PlcModuleLastData.class, plcConfiguration.getDbNrBasicInfo(), 0);
+        PlcModuleLastData plcModuleLastData = s7Serializer.dispense(PlcModuleLastData.class, plcConfiguration.getGetModuleInfoDbNumber(), 0);
+        List<PlcDosingDeviceData> dosingDevices = readInfoAboutDosingDevices(plcConfiguration.getAmountOfDosingDevices(),
+                plcConfiguration.getDosingDevicesDbNumber());
         this.closeSession();
-        return WeightModuleLastData.create(plcModuleLastData);
+        return WeightModuleLastData.create(plcModuleLastData, dosingDevices);
+    }
+
+    private List<PlcDosingDeviceData> readInfoAboutDosingDevices(int amountOfDosingDevices, int dosingDevicesDbNumber) {
+        List<PlcDosingDeviceData> dosingDevicesData = IntStream.range(0, amountOfDosingDevices)
+                .boxed()
+                .map(n -> {
+                    PlcDosingDeviceData plcData = s7Serializer.dispense(PlcDosingDeviceData.class, dosingDevicesDbNumber, n * 26);
+                    plcData.recordNumber = n + 1;
+                    return plcData;
+                })
+                .collect(Collectors.toList());
+        return dosingDevicesData;
     }
 }
