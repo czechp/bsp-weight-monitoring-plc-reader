@@ -1,5 +1,6 @@
-package app.web.weightModule;
+package app.web.weightModule.valueObject;
 
+import app.web.plcReader.DosingDevicePlcData;
 import app.web.utils.JsonConverter;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
@@ -17,6 +18,19 @@ public class DosingDevice {
     private int correctMeasuresPercent;
     private int totalMaterial;
 
+
+    static DosingDevice create(DosingDevicePlcData plcData){
+        return new DosingDevice(
+                plcData.getRecordNumber(),
+                plcData.getLastMeasure(),
+                plcData.getAmountBelowMeasures(),
+                plcData.getAmountCorrectMeasures(),
+                plcData.getAmountAboveMeasures(),
+                plcData.getAverageMeasure(),
+                plcData.getCorrectMeasuresPercent(),
+                plcData.getTotalMaterial()
+        );
+    }
 
     @Override
     public String toString() {

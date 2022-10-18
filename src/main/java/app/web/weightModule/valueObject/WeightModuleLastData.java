@@ -1,5 +1,6 @@
 package app.web.weightModule.valueObject;
 
+import app.web.plcReader.DosingDevicePlcData;
 import app.web.plcReader.PlcModuleLastData;
 import app.web.utils.JsonConverter;
 import lombok.AccessLevel;
@@ -7,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
@@ -14,7 +17,7 @@ public class WeightModuleLastData {
     private WeightModuleFirstData moduleInfo;
     private LastModuleInfo lastModuleInfo;
 
-    public static  WeightModuleLastData create(PlcModuleLastData module) {
+    public static  WeightModuleLastData create(PlcModuleLastData module, List<DosingDevicePlcData> plcDosingDevices) {
         WeightModuleFirstData moduleInfo = new WeightModuleFirstData(
                 module.getProductUpRangeWeight(),
                 module.getProductDownRangeWeight(),
@@ -23,7 +26,8 @@ public class WeightModuleLastData {
                 module.isStatus(),
                 module.getTotalMaterialWeight(),
                 module.getTotalProductPcs(),
-                module.getCorrectProductPercent()
+                module.getCorrectProductPercent(),
+                plcDosingDevices.stream().map(DosingDevice::create).collect(Collectors.toList())
         );
 
         LastModuleInfo lastModuleInfo = new LastModuleInfo(

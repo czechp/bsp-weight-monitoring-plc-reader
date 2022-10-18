@@ -29,11 +29,11 @@ public class RequestSenderFacade implements RequestSender {
     }
 
     @Override
-    public void sendBasicModuleData(String basicModuleJson) throws URISyntaxException, IOException, InterruptedException {
+    public void sendData(String requestBody) throws URISyntaxException, IOException, InterruptedException {
         final var ENDPOINT = configuration.getEndpoint() + configuration.getModuleId();
         HttpRequest.Builder requestBuilder = createRequestBuilder(ENDPOINT);
         addJsonContentHeader(requestBuilder);
-        final var httpRequest = requestBuilder.method("PATCH", createRequestBody(basicModuleJson)).build();
+        final var httpRequest = requestBuilder.method("PATCH", createRequestBody(requestBody)).build();
 
         sendRequest(httpRequest);
     }
