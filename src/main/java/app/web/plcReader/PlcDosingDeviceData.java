@@ -24,6 +24,6 @@ class PlcDosingDeviceData {
     public  float averageMeasure;
     @S7Variable(type = S7Type.WORD, byteOffset = 20)
     public  int correctMeasuresPercent;
-    @S7Variable(type = S7Type.WORD, byteOffset = 22)
-    public  int totalMaterial;
+    @S7Variable(type = S7Type.REAL, byteOffset = 22)
+    public  float totalMaterial;
 }

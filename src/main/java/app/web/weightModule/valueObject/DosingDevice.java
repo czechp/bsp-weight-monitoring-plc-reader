@@ -15,7 +15,7 @@ public class DosingDevice {
     private long amountAboveMeasures;
     private float averageMeasure;
     private int correctMeasuresPercent;
-    private int totalMaterial;
+    private float totalMaterial;
 
 
     static DosingDevice create(PlcDosingDeviceData plcData){
