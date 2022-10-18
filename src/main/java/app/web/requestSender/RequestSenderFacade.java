@@ -29,11 +29,11 @@ public class RequestSenderFacade implements RequestSender {
     }
 
     @Override
-    public void sendBasicModuleData(String basicModuleJson) throws URISyntaxException, IOException, InterruptedException {
+    public void sendData(String requestBody) throws URISyntaxException, IOException, InterruptedException {
         final var ENDPOINT = configuration.getEndpoint() + configuration.getModuleId();
         HttpRequest.Builder requestBuilder = createRequestBuilder(ENDPOINT);
         addJsonContentHeader(requestBuilder);
-        final var httpRequest = requestBuilder.method("PATCH", createRequestBody(basicModuleJson)).build();
+        final var httpRequest = requestBuilder.method("PATCH", createRequestBody(requestBody)).build();
 
         sendRequest(httpRequest);
     }
@@ -59,7 +59,7 @@ public class RequestSenderFacade implements RequestSender {
         final var httpClient = HttpClient.newBuilder().build();
         CompletableFuture<HttpResponse<String>> futureHttpResponse = httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
         futureHttpResponse.thenAccept((httpResponse) -> {
-            logger.info("Response from server: {} at endpoint: {} with status: {}", configuration.getServerUrl(), configuration.getEndpoint(), httpResponse.statusCode());
+            logger.info("Response from server: {} at endpoint: {} with status: {} with body: {}", configuration.getServerUrl(), configuration.getEndpoint(), httpResponse.statusCode(), httpResponse.body());
         });
     }
 }

@@ -35,6 +35,6 @@ abstract class WeightModuleAbstract <T> {
 
     private void sendDataToBackend() throws URISyntaxException, IOException, InterruptedException {
         RequestSender requestSender = new RequestSenderFacade(requestSenderConfiguration);
-        requestSender.sendBasicModuleData(moduleData.toString());
+        requestSender.sendData(moduleData.toString());
     }
 }

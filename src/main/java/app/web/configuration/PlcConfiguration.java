@@ -7,5 +7,7 @@ import lombok.Getter;
 @Getter
 public class PlcConfiguration {
     private final String plcAddress;
-    private final int dbNrBasicInfo;
+    private final int getModuleInfoDbNumber;
+    private final int amountOfDosingDevices;
+    private final int dosingDevicesDbNumber;
 }

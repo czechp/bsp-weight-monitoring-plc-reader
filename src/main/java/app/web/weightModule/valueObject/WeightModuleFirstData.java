@@ -1,5 +1,6 @@
 package app.web.weightModule.valueObject;
 
+import app.web.plcReader.PlcDosingDeviceData;
 import app.web.plcReader.PlcModuleFirstData;
 import app.web.utils.JsonConverter;
 import lombok.AccessLevel;
@@ -7,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor
@@ -19,8 +22,8 @@ public class WeightModuleFirstData {
     private float totalMaterialWeight = 0.0f;
     private long totalProductPcs = 0L;
     private float correctProductPercent = 0.0f;
-
-    public static WeightModuleFirstData create(PlcModuleFirstData plcData) {
+    private List<DosingDevice> dosingDevices;
+    public static WeightModuleFirstData create(PlcModuleFirstData plcData, List<PlcDosingDeviceData> dosingDevicesPlcData) {
         return new WeightModuleFirstData(
                 plcData.productUpRangeWeight,
                 plcData.productDownRangeWeight,
@@ -29,7 +32,10 @@ public class WeightModuleFirstData {
                 plcData.status,
                 plcData.totalMaterialWeight,
                 plcData.totalProductPcs,
-                plcData.correctProductPercent
+                plcData.correctProductPercent,
+                dosingDevicesPlcData.stream()
+                        .map(DosingDevice::create)
+                        .collect(Collectors.toList())
         );
     }
 
