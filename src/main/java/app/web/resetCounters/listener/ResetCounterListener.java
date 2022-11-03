@@ -14,7 +14,6 @@ class ResetCounterListener {
 
     @RabbitListener(queues = {"${rabbit.reset.queue}"})
     public void getResetMsg(ResetCounterMessage msg){
-        System.out.println("Works");
-        System.out.println(msg);
+        plcResetService.resetCounters(msg);
     }
 }
