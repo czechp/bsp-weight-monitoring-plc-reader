@@ -1,8 +1,8 @@
-package app.web.weightModule.valueObject;
+package app.web.readFromPlc.weightModule.valueObject;
 
-import app.web.plcReader.PlcDosingDeviceData;
-import app.web.plcReader.PlcModuleLastData;
-import app.web.utils.JsonConverter;
+import app.web.readFromPlc.plcReader.PlcDosingDeviceData;
+import app.web.readFromPlc.plcReader.PlcModuleLastData;
+import app.web.readFromPlc.utils.JsonConverter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

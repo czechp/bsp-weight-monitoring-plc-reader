@@ -1,4 +1,4 @@
-package app.web.plcReader;
+package app.web.readFromPlc.plcReader;
 
 import com.github.s7connector.api.annotation.S7Variable;
 import com.github.s7connector.impl.utils.S7Type;

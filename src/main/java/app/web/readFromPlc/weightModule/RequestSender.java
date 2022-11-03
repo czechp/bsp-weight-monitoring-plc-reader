@@ -1,4 +1,4 @@
-package app.web.weightModule;
+package app.web.readFromPlc.weightModule;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

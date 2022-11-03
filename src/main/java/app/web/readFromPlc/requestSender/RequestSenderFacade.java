@@ -1,7 +1,7 @@
-package app.web.requestSender;
+package app.web.readFromPlc.requestSender;
 
-import app.web.configuration.RequestSenderConfiguration;
-import app.web.weightModule.RequestSender;
+import app.web.readFromPlc.configuration.RequestSenderConfiguration;
+import app.web.readFromPlc.weightModule.RequestSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

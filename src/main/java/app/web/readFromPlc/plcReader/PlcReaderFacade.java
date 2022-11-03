@@ -1,9 +1,9 @@
-package app.web.plcReader;
+package app.web.readFromPlc.plcReader;
 
-import app.web.configuration.PlcConfiguration;
-import app.web.weightModule.PlcReader;
-import app.web.weightModule.valueObject.WeightModuleFirstData;
-import app.web.weightModule.valueObject.WeightModuleLastData;
+import app.web.readFromPlc.configuration.PlcConfiguration;
+import app.web.readFromPlc.weightModule.PlcReader;
+import app.web.readFromPlc.weightModule.valueObject.WeightModuleFirstData;
+import app.web.readFromPlc.weightModule.valueObject.WeightModuleLastData;
 import com.github.s7connector.api.S7Connector;
 import com.github.s7connector.api.S7Serializer;
 import com.github.s7connector.api.factory.S7ConnectorFactory;

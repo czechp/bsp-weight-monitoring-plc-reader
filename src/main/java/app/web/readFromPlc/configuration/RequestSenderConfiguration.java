@@ -1,4 +1,4 @@
-package app.web.configuration;
+package app.web.readFromPlc.configuration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

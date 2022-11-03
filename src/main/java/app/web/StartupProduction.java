@@ -1,9 +1,9 @@
 package app.web;
 
-import app.web.configuration.PlcConfiguration;
-import app.web.configuration.RequestSenderConfiguration;
-import app.web.weightModule.WeightModuleFirst;
-import app.web.weightModule.WeightModuleLast;
+import app.web.readFromPlc.configuration.PlcConfiguration;
+import app.web.readFromPlc.configuration.RequestSenderConfiguration;
+import app.web.readFromPlc.weightModule.WeightModuleFirst;
+import app.web.readFromPlc.weightModule.WeightModuleLast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
