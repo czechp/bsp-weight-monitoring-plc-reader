@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResetCounterMessage {
+class ResetCounterMessage {
     private LocalDateTime date;
     private List<Long> lineIds;
 }
