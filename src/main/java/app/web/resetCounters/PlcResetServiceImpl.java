@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 class PlcResetServiceImpl implements PlcResetService {
     private final PlcDataCollector plcDataCollector;
-
+    private final PlcResetHandler plcResetHandler;
 
     @Override
     public void resetCounters(ResetCounterMessage msg) {
@@ -17,6 +17,10 @@ class PlcResetServiceImpl implements PlcResetService {
     }
 
     private void resetCounter(long lineId){
-
+        plcDataCollector.getPlcResetInfo()
+                .stream()
+                .filter(plcResetInfo -> plcResetInfo.getLineId() == lineId)
+                .findAny()
+                .ifPresent(plcResetHandler::resetCounter);
     }
 }

@@ -1,8 +1,10 @@
 package app.web.resetCounters;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 class PlcResetInfo {
     private final String ipAddress;
     private final long lineId;
