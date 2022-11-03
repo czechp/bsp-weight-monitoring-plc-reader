@@ -1,5 +1,7 @@
 package app.web.resetCounters;
 
-interface PlcResetService {
+import app.web.resetCounters.listener.ResetCounterMessage;
+
+public interface PlcResetService {
     void resetCounters(ResetCounterMessage msg);
 }

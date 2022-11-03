@@ -1,11 +1,11 @@
-package app.web.resetCounters;
+package app.web.resetCounters.plcData;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-class PlcResetInfo {
+public class PlcResetInfo {
     private final String ipAddress;
     private final long lineId;
     private final int resetBitBlock;

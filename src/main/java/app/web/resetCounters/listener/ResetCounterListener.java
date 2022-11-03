@@ -1,5 +1,6 @@
-package app.web.resetCounters;
+package app.web.resetCounters.listener;
 
+import app.web.resetCounters.PlcResetService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
