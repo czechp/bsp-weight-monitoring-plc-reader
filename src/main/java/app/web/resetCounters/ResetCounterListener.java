@@ -5,6 +5,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 class ResetCounterListener {
+    private final PlcResetService plcResetService;
+
+    ResetCounterListener(PlcResetService plcResetService) {
+        this.plcResetService = plcResetService;
+    }
 
     @RabbitListener(queues = {"${rabbit.reset.queue}"})
     public void getResetMsg(ResetCounterMessage msg){
