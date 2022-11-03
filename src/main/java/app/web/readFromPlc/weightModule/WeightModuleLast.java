@@ -1,9 +1,9 @@
-package app.web.weightModule;
+package app.web.readFromPlc.weightModule;
 
-import app.web.configuration.PlcConfiguration;
-import app.web.configuration.RequestSenderConfiguration;
-import app.web.plcReader.PlcReaderFacade;
-import app.web.weightModule.valueObject.WeightModuleLastData;
+import app.web.readFromPlc.configuration.PlcConfiguration;
+import app.web.readFromPlc.configuration.RequestSenderConfiguration;
+import app.web.readFromPlc.plcReader.PlcReaderFacade;
+import app.web.readFromPlc.weightModule.valueObject.WeightModuleLastData;
 
 import java.io.IOException;
 

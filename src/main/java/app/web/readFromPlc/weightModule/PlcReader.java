@@ -1,7 +1,7 @@
-package app.web.weightModule;
+package app.web.readFromPlc.weightModule;
 
-import app.web.weightModule.valueObject.WeightModuleFirstData;
-import app.web.weightModule.valueObject.WeightModuleLastData;
+import app.web.readFromPlc.weightModule.valueObject.WeightModuleFirstData;
+import app.web.readFromPlc.weightModule.valueObject.WeightModuleLastData;
 
 import java.io.IOException;
 
