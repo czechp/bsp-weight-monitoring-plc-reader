@@ -11,6 +11,9 @@ class PlcDataCollectorProduction implements PlcDataCollector {
 
     @Override
     public List<PlcResetInfo> getPlcResetInfo() {
-        return List.of(new PlcResetInfo("192.168.1.46", 1L));
+        return List.of(
+                new PlcResetInfo("192.168.1.46", 1L),
+                new PlcResetInfo("192.168.1.47", 3L)
+        );
     }
 }

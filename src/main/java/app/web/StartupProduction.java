@@ -43,7 +43,10 @@ class StartupProduction {
         return List.of(
                 new WeightModuleFirst(
                         new PlcConfiguration("192.168.1.46", 32, 36, 34),
-                        new RequestSenderConfiguration(1, BACKEND_URL, "/api/weight-modules/data/", BACKEND_LOGIN, BACKEND_PASSWORD))
+                        new RequestSenderConfiguration(1, BACKEND_URL, "/api/weight-modules/data/", BACKEND_LOGIN, BACKEND_PASSWORD)),
+                new WeightModuleFirst(
+                        new PlcConfiguration("192.168.1.47", 32, 36, 34),
+                        new RequestSenderConfiguration(2, BACKEND_URL, "/api/weight-modules/data/", BACKEND_LOGIN, BACKEND_PASSWORD))
         );
     }
 
@@ -52,6 +55,10 @@ class StartupProduction {
                 new WeightModuleLast(
                         new PlcConfiguration("192.168.1.46", 33, 36, 35),
                         new RequestSenderConfiguration(1, BACKEND_URL, "/api/weight-modules-last/data/", BACKEND_LOGIN, BACKEND_PASSWORD)
+                ),
+                new WeightModuleLast(
+                        new PlcConfiguration("192.168.1.47", 33, 36, 35),
+                        new RequestSenderConfiguration(2, BACKEND_URL, "/api/weight-modules-last/data/", BACKEND_LOGIN, BACKEND_PASSWORD)
                 )
         );
     }
