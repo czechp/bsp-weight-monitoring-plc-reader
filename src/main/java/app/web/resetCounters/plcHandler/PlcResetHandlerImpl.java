@@ -10,7 +10,7 @@ import java.io.IOException;
 @Service
 class PlcResetHandlerImpl implements PlcResetHandler {
     @Override
-    public void resetCounter(PlcResetInfo plcResetInfo) throws IOException {
+    public void resetCounter(PlcResetInfo plcResetInfo) throws Exception {
         final var s7Connector = S7ConnectorFactory
                 .buildTCPConnector()
                 .withHost(plcResetInfo.getIpAddress())

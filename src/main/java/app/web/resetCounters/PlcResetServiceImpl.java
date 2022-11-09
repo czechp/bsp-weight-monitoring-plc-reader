@@ -32,8 +32,8 @@ class PlcResetServiceImpl implements PlcResetService {
                 .ifPresent(plcResetInfo -> {
                     try {
                         plcResetHandler.resetCounter(plcResetInfo);
-                        logger.info("PLC Counters IP: {} line id: {} was reset", plcResetInfo.getIpAddress(), plcResetInfo.getIpAddress());
-                    } catch (IOException e) {
+                        logger.info("PLC Counters IP: {} line id: {} was reset", plcResetInfo.getIpAddress(), plcResetInfo.getLineId());
+                    } catch (Exception e) {
                         logger.error("Cannot reset counter in line with id: {}", lineId);
                     }
                 });
