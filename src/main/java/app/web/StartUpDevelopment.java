@@ -31,7 +31,6 @@ class StartUpDevelopment {
 
     @Scheduled(fixedDelay = 5_000)
     void startUp() throws IOException {
-        logger.info("Application started in development mode");
         final var httpConfigurationModuleFirst = new RequestSenderConfiguration(1L, BACKEND_URL, "/api/weight-modules/data/", BACKEND_LOGIN, BACKEND_PASSWORD);
         final var httpConfigurationModuleLast = new RequestSenderConfiguration(1L, BACKEND_URL, "/api/weight-modules-last/data/", BACKEND_LOGIN, BACKEND_PASSWORD);
         final var plcConfigurationModuleFirst = new PlcConfiguration("192.168.1.47", 32, 10, 34);

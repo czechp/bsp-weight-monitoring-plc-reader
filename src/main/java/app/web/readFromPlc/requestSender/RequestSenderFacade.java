@@ -58,8 +58,6 @@ public class RequestSenderFacade implements RequestSender {
     private void sendRequest(HttpRequest httpRequest) {
         final var httpClient = HttpClient.newBuilder().build();
         CompletableFuture<HttpResponse<String>> futureHttpResponse = httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
-        futureHttpResponse.thenAccept((httpResponse) -> {
-            logger.info("Response from server: {} at endpoint: {} with status: {} with body: {}", configuration.getServerUrl(), configuration.getEndpoint(), httpResponse.statusCode(), httpResponse.body());
-        });
+        futureHttpResponse.thenAccept((httpResponse) -> {});
     }
 }

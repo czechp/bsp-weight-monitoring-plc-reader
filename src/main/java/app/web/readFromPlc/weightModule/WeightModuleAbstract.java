@@ -28,8 +28,6 @@ abstract class WeightModuleAbstract <T> {
             this.moduleData = readDataFromPlc();
             sendDataToBackend();
         }catch (Exception e){
-            logger.error("Error during processing data");
-            logger.error("PLC: {}", plcConfiguration.getPlcAddress());
         }
     }
 

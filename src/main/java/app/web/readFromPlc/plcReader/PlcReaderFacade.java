@@ -35,19 +35,16 @@ public class PlcReaderFacade implements PlcReader {
                 .withSlot(1) //optional
                 .build();
         s7Serializer = S7SerializerFactory.buildSerializer(s7Connector);
-        logger.info("Connection with PLC: {} established", plcConfiguration.getPlcAddress());
     }
 
     @Override
     public void closeSession() throws IOException {
         s7Connector.close();
-        logger.info("Data read from PLC: {}", plcConfiguration.getPlcAddress());
     }
 
     @Override
     public WeightModuleFirstData readFirstModuleData() throws IOException {
         this.createSession();
-        logger.info("Read data form module I");
         PlcModuleFirstData plcModuleFirstData = s7Serializer.dispense(PlcModuleFirstData.class, plcConfiguration.getGetModuleInfoDbNumber(), 0);
         List<PlcDosingDeviceData> dosingDevices = readInfoAboutDosingDevices(plcConfiguration.getAmountOfDosingDevices(),
                 plcConfiguration.getDosingDevicesDbNumber());
@@ -59,7 +56,6 @@ public class PlcReaderFacade implements PlcReader {
     @Override
     public WeightModuleLastData readLastModuleData() throws IOException {
         this.createSession();
-        logger.info("Read data form module II");
         PlcModuleLastData plcModuleLastData = s7Serializer.dispense(PlcModuleLastData.class, plcConfiguration.getGetModuleInfoDbNumber(), 0);
         List<PlcDosingDeviceData> dosingDevices = readInfoAboutDosingDevices(plcConfiguration.getAmountOfDosingDevices(),
                 plcConfiguration.getDosingDevicesDbNumber());

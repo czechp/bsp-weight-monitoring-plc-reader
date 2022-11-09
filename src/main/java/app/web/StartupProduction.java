@@ -29,9 +29,8 @@ class StartupProduction {
     private String BACKEND_PASSWORD;
 
 
-    @Scheduled(fixedDelay = 60_000)
+    @Scheduled(fixedDelay = 30_000)
     void startUp() throws IOException {
-        logger.info("Application started in production mode");
         createFirstModules()
                 .forEach(WeightModuleFirst::processData);
         createLastModules()
