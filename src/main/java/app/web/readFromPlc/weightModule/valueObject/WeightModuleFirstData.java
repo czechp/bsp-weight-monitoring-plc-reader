@@ -23,6 +23,7 @@ public class WeightModuleFirstData {
     private long totalProductPcs = 0L;
     private float correctProductPercent = 0.0f;
     private List<DosingDevice> dosingDevices;
+
     public static WeightModuleFirstData create(PlcModuleFirstData plcData, List<PlcDosingDeviceData> dosingDevicesPlcData) {
         return new WeightModuleFirstData(
                 plcData.productUpRangeWeight,
@@ -30,7 +31,7 @@ public class WeightModuleFirstData {
                 plcData.currentDosingDevice,
                 plcData.currentMeasure,
                 plcData.status,
-                plcData.totalMaterialWeight,
+                plcData.totalMaterialWeight / 1000.0f,
                 plcData.totalProductPcs,
                 plcData.correctProductPercent,
                 dosingDevicesPlcData.stream()

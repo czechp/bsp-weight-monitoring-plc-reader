@@ -24,7 +24,7 @@ public class WeightModuleLastData {
                 module.getCurrentDosingDevice(),
                 module.getCurrentMeasure(),
                 module.isStatus(),
-                module.getTotalMaterialWeight(),
+                module.getTotalMaterialWeight() / 1000f,
                 module.getTotalProductPcs(),
                 module.getCorrectProductPercent(),
                 plcDosingDevices.stream().map(DosingDevice::create).collect(Collectors.toList())
@@ -32,7 +32,7 @@ public class WeightModuleLastData {
 
         LastModuleInfo lastModuleInfo = new LastModuleInfo(
                 module.getIncorrectProductPcs(),
-                module.getWeightDifference(),
+                module.getWeightDifference() / 1000.0f,
                 module.getCorrectToOverDosePercent(),
                 module.getNotRefilledProductPcs(),
                 module.getOverFilledProductPcs(),
