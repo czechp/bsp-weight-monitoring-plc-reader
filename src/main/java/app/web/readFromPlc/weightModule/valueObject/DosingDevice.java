@@ -8,7 +8,7 @@ import java.io.IOException;
 
 @AllArgsConstructor
 public class DosingDevice {
-    private  int recordNumber;
+    private int recordNumber;
     private float lastMeasure;
     private long amountBelowMeasures;
     private long amountCorrectMeasures;
@@ -18,7 +18,7 @@ public class DosingDevice {
     private float totalMaterial;
 
 
-    static DosingDevice create(PlcDosingDeviceData plcData){
+    static DosingDevice create(PlcDosingDeviceData plcData) {
         return new DosingDevice(
                 plcData.getRecordNumber(),
                 plcData.getLastMeasure(),
@@ -27,7 +27,7 @@ public class DosingDevice {
                 plcData.getAmountAboveMeasures(),
                 plcData.getAverageMeasure(),
                 plcData.getCorrectMeasuresPercent(),
-                plcData.getTotalMaterial()
+                plcData.getTotalMaterial() / 1000.0f
         );
     }
 
