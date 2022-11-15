@@ -58,6 +58,10 @@ class StartupProduction {
                 new WeightModuleLast(
                         new PlcConfiguration("192.168.1.47", 33, 36, 35),
                         new RequestSenderConfiguration(2, BACKEND_URL, "/api/weight-modules-last/data/", BACKEND_LOGIN, BACKEND_PASSWORD)
+                ),
+                new WeightModuleLast(
+                        new PlcConfiguration("192.168.1.48", 33, 78, 35),
+                        new RequestSenderConfiguration(3, BACKEND_URL, "/api/weight-modules-last/data/", BACKEND_LOGIN, BACKEND_PASSWORD)
                 )
         );
     }
